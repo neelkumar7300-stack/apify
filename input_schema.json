@@ -20,14 +20,14 @@
       "type": "string",
       "description": "Geographical search area (e.g. 'United States', 'London', 'Germany').",
       "editor": "textfield",
-      "default": "United States"
+      "default": "Greater Toronto Area, Ontario, Canada"
     },
     "maxItems": {
       "title": "Maximum Job Postings",
       "type": "integer",
       "description": "Limit the number of job postings to scrape in total.",
       "editor": "number",
-      "default": 40,
+      "default": 25,
       "minimum": 1
     },
     "postedWithin": {
