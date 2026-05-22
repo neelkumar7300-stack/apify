@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Apify Actor to scrape LinkedIn job postings",
   "dependencies": {
-    "apify": "^3.11.0",
+    "apify": "^3.7.2",
     "crawlee": "^3.11.0"
   },
   "scripts": {
