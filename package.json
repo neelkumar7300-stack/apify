@@ -1,0 +1,13 @@
+{
+  "name": "linkedin-job-scraper",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Apify Actor to scrape LinkedIn job postings",
+  "dependencies": {
+    "apify": "^3.11.0",
+    "crawlee": "^3.11.0"
+  },
+  "scripts": {
+    "start": "node src/main.js"
+  }
+}

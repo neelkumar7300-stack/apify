@@ -1,0 +1,9 @@
+{
+  "actorSpecification": 1,
+  "name": "linkedin-job-scraper",
+  "title": "LinkedIn Job Scraper (Latest 24 Hours)",
+  "description": "Scrapes recent job postings from LinkedIn for specific technical and support roles.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "./input_schema.json"
+}

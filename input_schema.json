@@ -1,0 +1,58 @@
+{
+  "title": "LinkedIn Job Scraper Input Schema",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "keywords": {
+      "title": "Search Keywords",
+      "type": "array",
+      "description": "LinkedIn search keywords (e.g. Job Titles or terms).",
+      "editor": "stringList",
+      "default": [
+        "IT Support",
+        "Help desk support",
+        "Technical Support",
+        "Field service technician"
+      ]
+    },
+    "location": {
+      "title": "Location",
+      "type": "string",
+      "description": "Geographical search area (e.g. 'United States', 'London', 'Germany').",
+      "editor": "textfield",
+      "default": "United States"
+    },
+    "maxItems": {
+      "title": "Maximum Job Postings",
+      "type": "integer",
+      "description": "Limit the number of job postings to scrape in total.",
+      "editor": "number",
+      "default": 40,
+      "minimum": 1
+    },
+    "postedWithin": {
+      "title": "Date Posted Filter",
+      "type": "string",
+      "description": "Filter jobs by when they were posted.",
+      "editor": "select",
+      "default": "r86400",
+      "enum": [
+        "r86400",
+        "r604800",
+        "r2592000",
+        "all"
+      ],
+      "enumTitles": [
+        "Past 24 Hours",
+        "Past Week",
+        "Past Month",
+        "Anytime"
+      ]
+    }
+  },
+  "required": [
+    "keywords",
+    "location",
+    "maxItems"
+  ]
+}
