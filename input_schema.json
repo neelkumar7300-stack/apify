@@ -15,19 +15,21 @@
         "Field service technician"
       ]
     },
-    "location": {
-      "title": "Location",
-      "type": "string",
-      "description": "Geographical search area (e.g. 'United States', 'London', 'Germany').",
-      "editor": "textfield",
-      "default": "Greater Toronto Area, Ontario, Canada"
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "description": "Geographical search areas (e.g. 'Greater Toronto Area, Ontario, Canada', 'New York').",
+      "editor": "stringList",
+      "default": [
+        "Greater Toronto Area, Ontario, Canada"
+      ]
     },
     "maxItems": {
       "title": "Maximum Job Postings",
       "type": "integer",
       "description": "Limit the number of job postings to scrape in total.",
       "editor": "number",
-      "default": 25,
+      "default": 40,
       "minimum": 1
     },
     "postedWithin": {
@@ -52,7 +54,7 @@
   },
   "required": [
     "keywords",
-    "location",
+    "locations",
     "maxItems"
   ]
 }
