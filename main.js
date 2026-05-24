@@ -13,14 +13,16 @@ const {
         "Technical Support",
         "Field service technician"
     ],
-    location = "United States",
+    locations = [
+        "Greater Toronto Area, Ontario, Canada"
+    ],
     maxItems = 40,
     postedWithin = "r86400" // Default: Past 24 Hours
 } = input;
 
 console.log(`Starting scraper with parameters:`);
 console.log(`- Keywords: ${JSON.stringify(keywords)}`);
-console.log(`- Location: ${location}`);
+console.log(`- Locations: ${JSON.stringify(locations)}`);
 console.log(`- Max Items: ${maxItems}`);
 console.log(`- Date Posted Filter: ${postedWithin}`);
 
@@ -128,13 +130,14 @@ const crawler = new CheerioCrawler({
             // Handle pagination if we found jobs and haven't exceeded the target count
             if (foundNewJobs && $jobs.length >= 10 && savedJobsCount < maxItems) {
                 const nextStart = userData.start + 25;
-                const nextSearchUrl = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodeURIComponent(userData.keyword)}&location=${encodeURIComponent(location)}&f_TPR=${postedWithin}&start=${nextStart}`;
-                console.log(`Enqueuing next page of search for "${userData.keyword}" (start: ${nextStart})`);
+                const nextSearchUrl = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodeURIComponent(userData.keyword)}&location=${encodeURIComponent(userData.location)}&f_TPR=${postedWithin}&start=${nextStart}`;
+                console.log(`Enqueuing next page of search for "${userData.keyword}" in "${userData.location}" (start: ${nextStart})`);
                 await crawlerInstance.addRequests([{
                     url: nextSearchUrl,
                     userData: {
                         label: 'search',
                         keyword: userData.keyword,
+                        location: userData.location,
                         start: nextStart
                     }
                 }]);
@@ -235,17 +238,21 @@ const crawler = new CheerioCrawler({
 });
 
 // Seed requests queue
-const initialRequests = keywords.map(keyword => {
-    const searchUrl = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}&f_TPR=${postedWithin}&start=0`;
-    return {
-        url: searchUrl,
-        userData: {
-            label: 'search',
-            keyword,
-            start: 0
-        }
-    };
-});
+const initialRequests = [];
+for (const keyword of keywords) {
+    for (const loc of locations) {
+        const searchUrl = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodeURIComponent(keyword)}&location=${encodeURIComponent(loc)}&f_TPR=${postedWithin}&start=0`;
+        initialRequests.push({
+            url: searchUrl,
+            userData: {
+                label: 'search',
+                keyword,
+                location: loc,
+                start: 0
+            }
+        });
+    }
+}
 
 // Run crawler
 console.log('Seeding initial search requests...');
